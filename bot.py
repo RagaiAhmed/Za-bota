@@ -5,12 +5,13 @@ import random
 token = os.getenv("DiscordBot")
 client = discord.Client()
 
-Ta3zeeb = ["la1.mp3", "la2.mp3","la3.mp3","la4.mp3"]
+Ta3zeeb = ["la1.mp3", "la2.mp3", "la3.mp3", "la4.mp3"]
 
 
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
+
 
 @client.event
 async def on_message(message):
@@ -25,6 +26,7 @@ async def on_message(message):
 
 
 local_random = random.Random()
+
 
 @client.event
 async def on_voice_state_update(member, before, after):
@@ -43,8 +45,8 @@ async def on_voice_state_update(member, before, after):
             await after.channel.connect()
             print("Entered voice xDD")
 
-        # Get voice client object
-        voice = discord.utils.get(client.voice_clients, guild=member.guild)
+    # Get voice client object
+    voice = discord.utils.get(client.voice_clients, guild=member.guild)
 
         # Check if not playing
         if not voice.is_playing():
@@ -55,5 +57,6 @@ async def on_voice_state_update(member, before, after):
         for m in after.channel.members:
             if m.id == client.user.id:
                 await m.edit(mute=False)
+
 
 client.run(token)
