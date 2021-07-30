@@ -87,12 +87,19 @@ async def torture(member, after):
 
 target_channel_id = 868655289891700816
 
-
 @tasks.loop(hours=24)
 async def called_once_a_day():
     message_channel = client.get_channel(target_channel_id)
     print(f"Daily spanking initiated :p {message_channel}")
+    await message_channel.send("Time for the daily spanking :D")
     await message_channel.send("pls spank <@367668673583906817>")
 
+
+@called_once_a_day.before_loop
+async def before():
+    await client.wait_until_ready()
+    print("Finished waiting")
+
+called_once_a_day.start()
 
 client.run(token)
