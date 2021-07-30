@@ -1,4 +1,5 @@
 import discord
+from discord.ext import tasks
 import os
 import random
 
@@ -41,6 +42,10 @@ async def on_message(message):
         else:
             await message.channel.send('Woah you ain\'t my boss !!')
 
+    if message.content.startswith('!beg'):
+        await message.channel.send('pls bal')
+        # await message.channel.send('yes')
+
 
 local_random = random.Random()
 
@@ -78,6 +83,16 @@ async def torture(member, after):
     for m in after.channel.members:
         if m.id == client.user.id:
             await m.edit(mute=False)
+
+
+target_channel_id = 868655289891700816
+
+
+@tasks.loop(hours=24)
+async def called_once_a_day():
+    message_channel = client.get_channel(target_channel_id)
+    print(f"Daily spanking initiated :p {message_channel}")
+    await message_channel.send("pls spank <@367668673583906817>")
 
 
 client.run(token)
